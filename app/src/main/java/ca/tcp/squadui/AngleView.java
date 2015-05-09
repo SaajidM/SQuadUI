@@ -18,6 +18,9 @@ public class AngleView extends SurfaceView implements SurfaceHolder.Callback {
     private int canvasCenterX, canvasCenterY;
     private Paint mPaint;
 
+    private int skyColor = Color.rgb(135, 206, 250);
+    private int groundColor = Color.rgb(1, 166, 17);
+
     public AngleView(Context context) {
         super(context);
         ini();
@@ -52,10 +55,9 @@ public class AngleView extends SurfaceView implements SurfaceHolder.Callback {
         canvasHeight = c.getHeight();
         canvasCenterX = c.getWidth()/2;
         canvasCenterY = c.getHeight()/2;
-        c.drawColor(Color.BLACK);
-        mPaint.setColor(Color.rgb(87, 59, 12));
+        mPaint.setColor(groundColor);
         c.drawRect(0, canvasCenterY, canvasWidth, canvasHeight, mPaint);
-        mPaint.setColor(Color.rgb(135, 206, 250));
+        mPaint.setColor(skyColor);
         c.drawRect(0, 0, canvasWidth, canvasCenterY, mPaint);
         mPaint.setColor(Color.WHITE);
         c.drawLine(0, canvasCenterY, canvasWidth, canvasCenterY, mPaint);
@@ -69,10 +71,9 @@ public class AngleView extends SurfaceView implements SurfaceHolder.Callback {
         int leftEnd = canvasCenterY-pitch-roll;
         int lowestEnd = Math.max(rightEnd, leftEnd);
         Canvas c = mHolder.lockCanvas();
-        c.drawColor(Color.BLACK);
-        mPaint.setColor(Color.rgb(135, 206, 250));
+        mPaint.setColor(skyColor);
         c.drawRect(0, 0, canvasWidth, lowestEnd, mPaint);
-        mPaint.setColor(Color.rgb(87, 59, 12));
+        mPaint.setColor(groundColor);
         Path path = new Path();
         path.setFillType(Path.FillType.EVEN_ODD);
         path.moveTo(0, leftEnd);

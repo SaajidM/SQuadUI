@@ -21,6 +21,11 @@ public class RisingLevelView extends SurfaceView implements SurfaceHolder.Callba
     private int halfHandleSize = handleSize/2;
     private int currentY = Integer.MIN_VALUE;
 
+    private int backgroundColor = getResources().getColor(R.color.base);
+    private int barColor = getResources().getColor(R.color.accent);
+    private int touchedColor = getResources().getColor(R.color.base2);
+    private int stoppedColor = getResources().getColor(R.color.base3);
+
     public RisingLevelView(Context context) {
         super(context);
         ini();
@@ -47,13 +52,11 @@ public class RisingLevelView extends SurfaceView implements SurfaceHolder.Callba
 
     public void fillBottomUp(float y, int color) {
         Canvas c = mHolder.lockCanvas();
-        c.drawColor(Color.WHITE);
-        mPaint.setColor(color);
+        c.drawColor(backgroundColor);
+        mPaint.setColor(barColor);
         c.drawRect(0, y + halfHandleSize, canvasWidth, canvasHeight, mPaint);
-        mPaint.setColor(Color.LTGRAY);
+        mPaint.setColor(color);
         c.drawRect(0, y - halfHandleSize, canvasWidth, y + halfHandleSize, mPaint);
-        //mPaint.setColor(Color.MAGENTA);
-        //c.drawText(String.valueOf((int)(((canvasHeight-y)/canvasHeight)*100)), canvasWidth/2, y, mPaint);
         currentY = (int)y;
         mHolder.unlockCanvasAndPost(c);
     }
@@ -63,11 +66,11 @@ public class RisingLevelView extends SurfaceView implements SurfaceHolder.Callba
         Canvas c = mHolder.lockCanvas();
         canvasWidth = c.getWidth();
         canvasHeight = c.getHeight();
-        c.drawColor(Color.WHITE);
+        c.drawColor(backgroundColor);
         if (currentY == Integer.MIN_VALUE) {currentY=canvasHeight;}
-        mPaint.setColor(Color.GREEN);
+        mPaint.setColor(barColor);
         c.drawRect(0, currentY + halfHandleSize, canvasWidth, canvasHeight, mPaint);
-        mPaint.setColor(Color.LTGRAY);
+        mPaint.setColor(stoppedColor);
         c.drawRect(0, currentY - halfHandleSize, canvasWidth, currentY + halfHandleSize, mPaint);
         mHolder.unlockCanvasAndPost(c);
     }
@@ -90,18 +93,18 @@ public class RisingLevelView extends SurfaceView implements SurfaceHolder.Callba
         int y = (int)event.getY();
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (isTouchValid(y)) {
-                this.fillBottomUp(currentY, Color.RED);
+                this.fillBottomUp(currentY, touchedColor);
                 didTouchDown = true;
             }
             return true;
         } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
             if (didTouchDown  && isTouchInBound(y)) {
-                this.fillBottomUp(y, Color.BLUE);
+                this.fillBottomUp(y, touchedColor);
                 return true;
             }
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             didTouchDown = false;
-            this.fillBottomUp(currentY, Color.GREEN);
+            this.fillBottomUp(currentY, stoppedColor);
             return true;
         }
         return false;

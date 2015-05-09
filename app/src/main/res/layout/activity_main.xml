@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black">
+    android:background="@color/base">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,6 +45,7 @@
             android:id="@+id/phase2Button"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:enabled="false"
             android:layout_marginRight="75dp"
             android:layout_marginLeft="75dp"
             android:text="Phase 2"
@@ -54,7 +55,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Phase 2"
             android:textColor="@android:color/white"
             android:textSize="20sp"/>
     </LinearLayout>
@@ -69,13 +69,13 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:text="Phase 1"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:enabled="false"/>
         <TextView
             android:id="@+id/phase1Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Phase 1"
             android:textColor="@android:color/white"
             android:textSize="20sp"/>
     </LinearLayout>
@@ -89,6 +89,7 @@
             android:id="@+id/phase3Button"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:enabled="false"
             android:text="Phase 3"
             android:textSize="25sp"/>
         <TextView
@@ -96,7 +97,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Phase 3"
             android:textColor="@android:color/white"
             android:textSize="20sp"/>
     </LinearLayout>
@@ -128,8 +128,7 @@
         android:layout_below="@id/phase2Layout"
         android:layout_marginTop="25dp"
         android:textColor="@android:color/white"
-        android:textSize="40sp"
-        android:text="Hello World"/>
+        android:textSize="40sp"/>
     <TextView
         android:id="@+id/systemMessagesTxt"
         android:layout_width="wrap_content"
@@ -139,7 +138,7 @@
         android:layout_marginTop="10dp"
         android:textColor="@android:color/white"
         android:textSize="40sp"
-        android:text="Hello World"/>
+        android:text="Looking For Quad ..."/>
     <Button
         android:id="@+id/calibrateButton"
         android:layout_width="150dp"
@@ -168,8 +167,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/yawLeftButton"
         android:layout_alignParentRight="true"
-        android:text="Yaw Trim R"
-        android:onClick="testSomething"/>
+        android:text="Yaw Trim R"/>
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

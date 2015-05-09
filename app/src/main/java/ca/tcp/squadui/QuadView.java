@@ -16,6 +16,7 @@ public class QuadView extends SurfaceView implements SurfaceHolder.Callback {
     private int canvasWidth, canvasHeight;
     private int nwCenterX, nwCenterY, swCenterX, swCenterY, seCenterX, seCenterY, neCenterX, neCenterY;
     private Paint mPaint;
+    private int backgroundColor = getResources().getColor(R.color.base);
 
     public QuadView(Context context) {
         super(context);
@@ -56,8 +57,8 @@ public class QuadView extends SurfaceView implements SurfaceHolder.Callback {
         seCenterY = swCenterY;
         neCenterX = seCenterX;
         neCenterY = nwCenterY;
-        c.drawColor(Color.BLACK);
-        mPaint.setColor(Color.GRAY);
+        c.drawColor(backgroundColor);
+        mPaint.setColor(Color.WHITE);
         c.drawText("NW", nwCenterX, nwCenterY, mPaint);
         c.drawText("SW", swCenterX, swCenterY, mPaint);
         c.drawText("SE", seCenterX, seCenterY, mPaint);
@@ -67,7 +68,7 @@ public class QuadView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void setFourCordsValues(int nw, int sw, int se, int ne) {
         Canvas c = mHolder.lockCanvas();
-        c.drawColor(Color.BLACK);
+        c.drawColor(backgroundColor);
         c.drawText(String.valueOf(nw), nwCenterX, nwCenterY, mPaint);
         c.drawText(String.valueOf(sw), swCenterX, swCenterY, mPaint);
         c.drawText(String.valueOf(se), seCenterX, seCenterY, mPaint);

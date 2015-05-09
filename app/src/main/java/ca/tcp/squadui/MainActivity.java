@@ -26,6 +26,7 @@ public class MainActivity extends Activity {
     static final int WRITESTATUS = 20;
     static final int WRITECORDS = 30;
     static final int WRITEANGLES = 40;
+    static final int PHASECHANGES = 50;
 
     //Popular uuid for bluetooth taken from http://developer.android.com/reference/android/bluetooth/BluetoothDevice.html
     UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
@@ -130,6 +131,15 @@ public class MainActivity extends Activity {
                     case WRITESTATUS: {
                         String toWrite = msg.getData().getString("Status");
                         ((TextView)findViewById(R.id.statusMessageTxt)).setText(toWrite);
+                        if (toWrite.contains("PID")) {
+                            ((TextView)findViewById(R.id.phase1Text)).setText("Check");
+                            findViewById(R.id.phase2Button).setEnabled(true);
+                        } else if (toWrite.contains("Calibration")) {
+                            ((TextView)findViewById(R.id.phase2Text)).setText("Check");
+                            findViewById(R.id.phase3Button).setEnabled(true);
+                        } else if (toWrite.contains("Motors")) {
+                            ((TextView)findViewById(R.id.phase3Text)).setText("Check");
+                        }
                         break;
                     }
                     case WRITECORDS: {
@@ -155,6 +165,18 @@ public class MainActivity extends Activity {
 
     public void writeOut(char toWrite) {
         if (outRunning) {outT.writeOut((byte)toWrite);}
+    }
+
+    public void emgStop(View v) {
+        writeOut('E');
+    }
+
+    public void yawTrimL(View v) {
+        writeOut('I');
+    }
+
+    public void yawTrimR(View v) {
+        writeOut('M');
     }
 
     protected void onResume() {
@@ -189,6 +211,12 @@ public class MainActivity extends Activity {
                                     bdl.putString("Error", "Quad Found");
                                     msg.setData(bdl);
                                     handler.sendMessage(msg);
+                                    findViewById(R.id.phase1Button).setEnabled(true);
+                                    ((TextView)findViewById(R.id.phase1Text)).setText("");
+                                    findViewById(R.id.phase2Button).setEnabled(false);
+                                    ((TextView)findViewById(R.id.phase2Text)).setText("");
+                                    findViewById(R.id.phase3Button).setEnabled(false);
+                                    ((TextView)findViewById(R.id.phase3Text)).setText("");
                                 } else {
                                     Message msg = new Message();
                                     msg.what = WRITEERROR;
@@ -224,10 +252,14 @@ public class MainActivity extends Activity {
         inRunning = false;
         outRunning = false;
         quadBluetooth = null;
+        ((TextView)findViewById(R.id.statusMessageTxt)).setText("");
+        ((TextView)findViewById(R.id.systemMessagesTxt)).setText("Looking For Quad ...");
+        ((TextView)findViewById(R.id.phase1Text)).setText("");
+        ((TextView)findViewById(R.id.phase2Text)).setText("");
+        ((TextView)findViewById(R.id.phase3Text)).setText("");
         try {
             bluetoothSocket.close();
         } catch (Exception e) {}
-
         super.onPause();
     }
 

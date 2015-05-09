@@ -20,6 +20,9 @@ public class ThumbStickView extends SurfaceView implements SurfaceHolder.Callbac
     private int canvasCenterX, canvasCenterY;
     private int currentX, currentY;
     private Paint mPaint;
+    private int backgroundColor = getResources().getColor(R.color.base);
+    private int touchedColor = getResources().getColor(R.color.base2);
+    private int stoppedColor = getResources().getColor(R.color.base3);
 
     public ThumbStickView(Context context) {
         super(context);
@@ -53,8 +56,8 @@ public class ThumbStickView extends SurfaceView implements SurfaceHolder.Callbac
         canvasCenterY = canvasHeight/2;
         currentX = canvasCenterX;
         currentY = canvasCenterY;
-        c.drawColor(Color.WHITE);
-        mPaint.setColor(Color.GREEN);
+        c.drawColor(backgroundColor);
+        mPaint.setColor(stoppedColor);
         c.drawCircle(canvasCenterX, canvasCenterY, thumbSize, mPaint);
         mHolder.unlockCanvasAndPost(c);
     }
@@ -69,7 +72,7 @@ public class ThumbStickView extends SurfaceView implements SurfaceHolder.Callbac
 
     public void moveCircle(float x, float y, int color) {
         Canvas c = mHolder.lockCanvas();
-        c.drawColor(Color.WHITE);
+        c.drawColor(backgroundColor);
         mPaint.setColor(color);
         c.drawCircle(x, y, thumbSize, mPaint);
         currentX = (int)x;
@@ -79,8 +82,8 @@ public class ThumbStickView extends SurfaceView implements SurfaceHolder.Callbac
 
     public void centerCircle() {
         Canvas c = mHolder.lockCanvas();
-        c.drawColor(Color.WHITE);
-        mPaint.setColor(Color.GREEN);
+        c.drawColor(backgroundColor);
+        mPaint.setColor(stoppedColor);
         c.drawCircle(canvasCenterX, canvasCenterY, thumbSize, mPaint);
         currentX = canvasCenterX;
         currentY = canvasCenterY;
@@ -103,13 +106,13 @@ public class ThumbStickView extends SurfaceView implements SurfaceHolder.Callbac
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (isTouchValid(x,y)) {
                 didTouchDown = true;
-                moveCircle(canvasCenterX,canvasCenterY,Color.RED);
+                moveCircle(canvasCenterX, canvasCenterY, touchedColor);
                 return true;
             }
         }
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
             if (didTouchDown && isTouchInBound(x, y)) {
-                this.moveCircle(x, y, Color.BLUE);
+                this.moveCircle(x, y, touchedColor);
                 return true;
             }
         }
