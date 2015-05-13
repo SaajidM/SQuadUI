@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="base" type="color">#95AACF</item>
-    <item name="accent" type="color">#6781AE</item>
-    <item name="base2" type="color">#68B159</item>
-    <item name="base3" type="color">#734C8F</item>
-    <item name="baseComp" type="color">#FFEFD2</item>
+    <item name="base" type="color">#244C6D</item>
+    <item name="accent" type="color">#72B05D</item>
+    <item name="base2" type="color">#6C6AAA</item>
+    <item name="base3" type="color">#FF7583</item>
+    <item name="baseComp" type="color">#B3B3B3</item>
 
     <integer-array name="SQuadUIcolors">
         <item>@color/base</item>
@@ -13,5 +13,4 @@
         <item>@color/base3</item>
         <item>@color/baseComp</item>
     </integer-array>
-
 </resources>

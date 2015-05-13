@@ -26,7 +26,6 @@ public class MainActivity extends Activity {
     static final int WRITESTATUS = 20;
     static final int WRITECORDS = 30;
     static final int WRITEANGLES = 40;
-    static final int PHASECHANGES = 50;
 
     //Popular uuid for bluetooth taken from http://developer.android.com/reference/android/bluetooth/BluetoothDevice.html
     UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
@@ -43,11 +42,12 @@ public class MainActivity extends Activity {
     RisingLevelView throttleView;
     QuadView quadView;
     AngleView angleView;
-    int throttleMin = 750;
-    int throttleMax = 2000;
-    int throttleRange = throttleMax-throttleMin;
+    static final int THRTLMIN = 750;
+    static final int THRTLMAX = 1500;
+    static final int THRTLRANGE = THRTLMAX-THRTLMIN;
+    static final int MAXANGLE = 20;
 
-    short currentThrottle = 700, currentPitch=0, currentRoll=0;
+    short currentThrottle = 700, currentPitch = 0, currentRoll = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +62,8 @@ public class MainActivity extends Activity {
                                         public boolean onTouch(View v, MotionEvent event) {
                                             if (pitchRollView.onTouch(event)) {
                                                 if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                                                    currentPitch = (short)(((pitchRollView.getCanvasCenterY() - event.getY()) / (pitchRollView.getCanvasCenterY())) * -20);
-                                                    currentRoll = (short)(((event.getX() - pitchRollView.getCanvasCenterX()) / (pitchRollView.getCanvasCenterX())) * -20);
+                                                    currentPitch = (short)(((pitchRollView.getCanvasCenterY() - event.getY()) / (pitchRollView.getCanvasCenterY())) * -MAXANGLE);
+                                                    currentRoll = (short)(((event.getX() - pitchRollView.getCanvasCenterX()) / (pitchRollView.getCanvasCenterX())) * -MAXANGLE);
                                                     ((TextView) findViewById(R.id.pitchText)).setText(String.valueOf(currentPitch));
                                                     ((TextView) findViewById(R.id.rollText)).setText(String.valueOf(-currentRoll));
                                                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -84,8 +84,8 @@ public class MainActivity extends Activity {
                                             public boolean onTouch(View v, MotionEvent event) {
                                                 if (throttleView.onTouch(event)) {
                                                     if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                                                        currentThrottle = (short)(throttleMax - (event.getY()/throttleView.getCanvasHeight()) * throttleRange);
-                                                        if (currentThrottle > throttleMax) { currentThrottle = (short)throttleMax;}
+                                                        currentThrottle = (short)(THRTLMAX - (event.getY()/throttleView.getCanvasHeight()) * THRTLRANGE);
+                                                        if (currentThrottle > THRTLMAX) { currentThrottle = (short)THRTLMAX;}
                                                         ((TextView)findViewById(R.id.throttleText)).setText(String.valueOf(currentThrottle));
                                                     }
                                                     return true;
