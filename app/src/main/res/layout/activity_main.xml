@@ -43,14 +43,14 @@
         android:layout_centerHorizontal="true">
         <Button
             android:id="@+id/phase2Button"
+            android:background="@drawable/flat_button_selector"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:enabled="false"
             android:layout_marginRight="75dp"
             android:layout_marginLeft="75dp"
             android:text="Phase 2"
-            android:textSize="25sp"
-            android:background="@drawable/flat_button_selector"/>
+            android:textSize="25sp"/>
         <TextView
             android:id="@+id/phase2Text"
             android:layout_width="wrap_content"
@@ -67,11 +67,11 @@
         android:layout_toLeftOf="@id/phase2Layout">
         <Button
             android:id="@+id/phase1Button"
+            android:background="@drawable/flat_button_selector"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:text="Phase 1"
             android:textSize="25sp"
-            android:background="@drawable/flat_button_selector"
             android:enabled="false"/>
         <TextView
             android:id="@+id/phase1Text"
@@ -89,12 +89,12 @@
         android:layout_toRightOf="@id/phase2Layout">
         <Button
             android:id="@+id/phase3Button"
+            android:background="@drawable/flat_button_selector"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:enabled="false"
             android:text="Phase 3"
-            android:textSize="25sp"
-            android:background="@drawable/flat_button_selector"/>
+            android:textSize="25sp"/>
         <TextView
             android:id="@+id/phase3Text"
             android:layout_width="wrap_content"
@@ -144,33 +144,36 @@
         android:text="Looking For Quad ..."/>
     <Button
         android:id="@+id/calibrateButton"
+        android:background="@drawable/flat_button_selector"
         android:layout_width="150dp"
         android:layout_height="75dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:text="CALIBRATE"
-        android:textSize="20sp"
-        android:background="@drawable/flat_button_selector"/>
+        android:textSize="20sp"/>
     <Button
         android:id="@+id/emergStopButton"
+        android:background="@drawable/flat_button_selector"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginRight="25dp"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@id/throttleLayout"
         android:text="EMERG STOP"
-        android:background="@drawable/flat_button_selector"/>
+        android:onClick="emgStop"/>
     <Button
         android:id="@+id/yawLeftButton"
+        android:background="@drawable/flat_button_selector"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:layout_margin="5dp"
         android:layout_alignParentRight="true"
         android:text="Yaw Trim L"
-        android:background="@drawable/flat_button_selector"/>
+        android:onClick="yawTrimL"/>
     <Button
         android:id="@+id/yawRightButton"
+        android:background="@drawable/flat_button_selector"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:padding="15dp"
@@ -178,7 +181,7 @@
         android:layout_below="@id/yawLeftButton"
         android:layout_alignParentRight="true"
         android:text="Yaw Trim R"
-        android:background="@drawable/flat_button_selector"/>
+        android:onClick="yawTrimR"/>
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

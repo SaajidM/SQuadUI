@@ -48,6 +48,7 @@ public class MainActivity extends Activity {
     static final int MAXANGLE = 20;
 
     short currentThrottle = 700, currentPitch = 0, currentRoll = 0;
+    byte miscData = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,16 +168,19 @@ public class MainActivity extends Activity {
         if (outRunning) {outT.writeOut((byte)toWrite);}
     }
 
+    public void writeOut(byte toWrite) {
+        if(outRunning) {outT.writeOut(toWrite);} }
+
     public void emgStop(View v) {
-        writeOut('E');
+        miscData |= 1;
     }
 
     public void yawTrimL(View v) {
-        writeOut('I');
+        miscData |= 2;
     }
 
     public void yawTrimR(View v) {
-        writeOut('M');
+        miscData |= 4;
     }
 
     protected void onResume() {
@@ -248,7 +252,6 @@ public class MainActivity extends Activity {
     }
 
     public void onPause() {
-        writeOut('E');
         inRunning = false;
         outRunning = false;
         quadBluetooth = null;
@@ -330,6 +333,8 @@ public class MainActivity extends Activity {
                         writeOut(currentPitch);
                         writeOut(currentRoll);
                         writeOut(currentThrottle);
+                        writeOut(miscData);
+                        miscData = 0;
                     } else {
                         Message msg = new Message();
                         msg.what = WRITESTATUS;
